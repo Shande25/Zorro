@@ -29,7 +29,7 @@
       <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">  
         <ul>  
           <li nz-menu-item nzMatchRouter>  
-            <a>Basic Form</a>  
+            <a routerLink="/productos">Productos</a>  
           </li>  
         </ul>  
       </li>  
@@ -44,9 +44,28 @@
                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"  
             ></span>  
         </span>  
-        <nz-avatar nzIcon="user" routerLink="/login" style="cursor:pointer; background-color:#87d068; margin-right: 16px"  
+        <nz-avatar nzIcon="user" 
+        routerLink="/login" 
+        *ngIf="!isLooged(); else loggedId" style="cursor: pointer; background-color:#87d068; margin-right: 16px"  
         nzTooltipTitle="Iniciar Sesión" nzTooltipPlacement="bottom" 
         nz-tooltip></nz-avatar> 
+ 
+        <ng-template #loggedId> 
+          <button nzType="text" nz-button nz-dropdown [nzDropdownMenu]="menu">
+            <nz-avatar nzIcon="user" [nzSrc]="register?.photoURL"></nz-avatar>
+            <span style="margin-left: 8px;" nzType="down"></span>
+          </button>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <a>Editar Perfil</a>
+              </li>
+              <li nz-menu-item (click)="onClickLogout()">
+                <a>Cerrar Sesión</a>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </ng-template> 
       </div>  
     </nz-header>  
     <nz-breadcrumb style="margin-top: 16px; margin-left: 16px;" > 
